@@ -1,14 +1,39 @@
 import { useState } from "react";
-
+import calculateWinner from "../helper/calculateWinner";
 import Square from "./Square";
 
-function Board() {
-  const [squaresStates, setSquares] = useState(Array(9).fill(null));
+interface boardProps {
+  squares: string[];
+  xIsNext: boolean;
+  onPlay: (nextSquares: string[]) => void;
+}
 
-  function handleClick( i: number) {
-    const nextSquares = squaresStates.slice();
-    nextSquares[i] = "X";
-    setSquares(nextSquares);
+
+function Board( {squares, xIsNext, onPlay}: boardProps) {
+
+  const winner = calculateWinner(squares);
+  let status: string;
+
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
+  function handleClick(i: number) {
+    const nextSquares = squares.slice();
+
+    if(squares[i] || calculateWinner(squares)){
+      return;
+    }
+
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+
+    onPlay(nextSquares);
   }
 
   return (
@@ -17,9 +42,15 @@ function Board() {
         {" "}
         Tic-Tac-Toe
       </h1>
-      {squaresStates.map((item, index) => {
-        return <Square value={squaresStates[index]} onSquareClick={() => handleClick(index)}/>;
+      {squares.map((item, index) => {
+        return (
+          <Square
+            value={squares[index]}
+            onSquareClick={() => handleClick(index)}
+          />
+        );
       })}
+      <div className="col-span-3 text-center">{status}</div>
     </div>
   );
 }
