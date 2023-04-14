@@ -13,6 +13,11 @@ function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
+  function resetGame() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+  }
+
   function jumpTo(nextMove: number) {
     setCurrentMove(nextMove);
   }
@@ -21,7 +26,8 @@ function Game() {
     const description = move ? `Go to move #${move}` : `Go to game start`;
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
   });
@@ -29,16 +35,21 @@ function Game() {
   return (
     <div className="inline-flex py-2">
       <div className="flex flex-col items-center justify-center w-auto flex-2 px-20 text-center">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} resetBoard={resetGame}/>
       </div>
-      <div className="items-start justify-start w-full flex-1 pt-7">
-        <h1 className="text-4xl col-span-3 text-center font-bold">
+      <div className="w-full flex-1 pt-7">
+        <h1 className="text-4xl col-span-3 text-center font-bold pb-3">
           Game status
         </h1>
-        <ol className="list-decimal">{moves}</ol>
+        <ol className="list-decimal space-y-2">{moves}</ol>
       </div>
     </div>
   );
 }
+
+
+
+
+
 
 export default Game;
