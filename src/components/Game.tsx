@@ -34,7 +34,7 @@ function Game() {
 
   return (
     <div className="flex flex-wrap py-2">
-      <div className="flex flex-col items-center justify-center w-auto flex-2 px-20 text-center">
+      <div className="flex flex-col items-center justify-center w-auto flex-2 ml-5 text-center">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} resetBoard={resetGame}/>
       </div>
         <div className="block text-center pt-7 mx-10">
