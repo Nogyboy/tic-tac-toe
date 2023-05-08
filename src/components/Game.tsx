@@ -33,11 +33,11 @@ function Game() {
   });
 
   return (
-    <div className="inline-flex py-2">
+    <div className="flex flex-wrap py-2">
       <div className="flex flex-col items-center justify-center w-auto flex-2 px-20 text-center">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} resetBoard={resetGame}/>
       </div>
-      <div className="w-full flex-1 pt-7">
+        <div className="block text-center pt-7 mx-10">
         <h1 className="text-4xl col-span-3 text-center font-bold pb-3">
           Game status
         </h1>
